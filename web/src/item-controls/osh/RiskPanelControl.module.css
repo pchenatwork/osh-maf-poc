@@ -1,0 +1,101 @@
+/* Styles for RiskPanelControl.tsx.
+
+   This file restyles its children without naming a single one of their
+   classes. It sets the custom properties the shared item vocabulary publishes
+   as its style API — see the header of item-controls.module.css for the list
+   and the defaults — and keys on `data-item-type`, the hook Field.tsx stamps
+   on every item for exactly this purpose. A scoped class name cannot cross a
+   module boundary; a custom property and an attribute can.
+
+   `fieldset` and `legend` are element selectors because they are structure,
+   not style, so reading them does not breach that boundary the way naming
+   GroupControl's `.group` would.
+
+   Every selector below is a child selector rather than a descendant one. The
+   panel's definition shape is fixed — panel > line group > items, see the
+   contract in the .tsx — so the exact depth of each rule's target is known,
+   and saying so keeps a rule from reaching somewhere it was not meant to. */
+
+.panel {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.legend {
+  font-weight: 700;
+  padding: 0 0.5rem;
+}
+
+/* ONE LINE ITEM
+
+     [ O Y  O N  O U ]  History of asthma-related hospitalizations *  How many times *  [__]  Last occurrence  [__/__/____]
+
+   The line group's fieldset is the row. GroupControl draws it with a border
+   and a legend, and inside a panel that already draws its own frame both are
+   noise — worse, the legend repeats verbatim the question text the choice
+   item renders as its label. Hiding it costs the group its accessible name,
+   which is the right trade precisely because that name is a duplicate.
+
+   flex-wrap rather than nowrap: a narrow viewport should fold the qualifiers
+   onto a second visual line, not force the panel to scroll sideways. */
+.panel > fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+
+  border: 0;
+  padding: 0;
+  margin: 0 0 0.35rem;
+  min-width: 0; /* or the fieldset refuses to shrink inside the panel */
+}
+.panel > fieldset > legend {
+  display: none;
+}
+
+/* Every item on the line shrinks to its content. The shared default of a
+   minmax() label column and a 1fr field would let the first item eat the whole
+   width and push the next onto a new flex line, which is the layout this rule
+   exists to prevent. --item-margin goes to 0 because the fieldset owns the
+   spacing between lines now. */
+.panel > fieldset > [data-item-type] {
+  --item-columns: max-content max-content;
+  --item-gap: 0 0.5rem;
+  --item-margin: 0;
+}
+
+/* Only the Y/N/U item puts the answer before the question text. The
+   qualifiers stay label-first — an input ahead of the words "How many times"
+   reads backwards. */
+.panel > fieldset > [data-item-type="choice"] {
+  --item-field-order: 1; /* the answer, rendered first... */
+  --item-label-order: 2; /* ...then the question text */
+}
+
+/* The shared sheet sets `.field > input { width: 100% }`, which inside a
+   max-content column resolves to the browser's intrinsic size — wide enough
+   for a number spinner to swallow the rest of the row. Two class-equivalent
+   selectors here so this outranks that rule whatever order the two modules
+   land in the bundle. */
+.panel > fieldset [data-item-type] input,
+.panel > fieldset [data-item-type] select {
+  width: auto;
+}
+.panel > fieldset [data-item-type="integer"] input {
+  width: 4rem;
+}
+
+/* Under 720px the shared sheet has already dropped every item to one column,
+   so a row of them no longer fits across. Stack the line instead and indent
+   the qualifiers under the answer that turned them on. */
+@media (max-width: 720px) {
+  .panel > fieldset {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .panel > fieldset > [data-item-type]:not([data-item-type="choice"]) {
+    margin-left: 1.5rem;
+  }
+}

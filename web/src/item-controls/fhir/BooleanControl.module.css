@@ -1,0 +1,20 @@
+/* Styles for BooleanControl.tsx.
+
+   Yes/No stack, matching the layout this control has always had. The label's
+   position relative to this group is not decided here — the shared item grid
+   decides it, driven by the label-orientation extension (see Field.tsx).
+
+   (Selectors in this file must not start a comment line: audit-css-modules
+   reads a line-leading `.name` as a declaration, comment or not.) */
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.option {
+  display: flex;
+  gap: 0.4rem;
+  align-items: baseline;
+}

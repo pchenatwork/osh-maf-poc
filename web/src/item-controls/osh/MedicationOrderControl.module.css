@@ -1,0 +1,29 @@
+/* Styles for MedicationOrderControl.tsx. */
+
+.order {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.grid {
+  /* auto-fit, not a fixed column count: order groups run from one child to
+     eight and the control cannot know which it has. Columns are as wide as
+     they need to be and wrap when they run out of room. */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem 1rem;
+  align-items: end;
+
+  /* The shared item style API. Inside a column this narrow the default
+     label-beside-field split has no room, so each field stacks instead; the
+     grid gap already provides the spacing .item would add below itself. */
+  --item-columns: 1fr;
+  --item-margin: 0;
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

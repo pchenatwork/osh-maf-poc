@@ -1,0 +1,113 @@
+/* Vocabulary shared by every item control, FHIR and OSH alike.
+
+   A rule earns a place here only when more than one control uses it. Anything
+   used by exactly one control belongs in that control's own .module.css.
+
+   These names are scoped by the compiler, so a control imports this file
+   explicitly (`import shared from "../item-controls.module.css"`) — there is
+   no ambient stylesheet any more, and that is the point.
+
+   STYLE API
+   ---------
+   Scoped class names cannot cross a module boundary, so a container that wants
+   to restyle a run of items cannot target them by name — correctly, that is
+   the point of modules. Custom properties are inherited values rather than
+   names, so they cross freely. The properties below are the shared surface:
+   set them on any ancestor and every item underneath follows. Everything else
+   here is private and may be renamed.
+
+     --item-columns       grid-template-columns   default: minmax(10rem, 20rem) 1fr
+     --item-gap           row / column gap        default: 0.5rem 1.5rem
+     --item-margin        space below a row       default: 1rem
+     --item-label-order   grid order of label     default: 0
+     --item-field-order   grid order of field     default: 0
+
+   Setting field-order below label-order puts the field first — the layout the
+   paper MAF uses for its Y/N/U panels. See RiskPanelControl.module.css. */
+
+/* The default one-item-per-row shape: label on the left, field on the right.
+   An item opts back into label-above-input by carrying the label-orientation
+   extension — see Field.tsx, which owns this markup for every control. */
+.item {
+  display: grid;
+  grid-template-columns: var(--item-columns, minmax(10rem, 20rem) 1fr);
+  gap: var(--item-gap, 0.5rem 1.5rem);
+  align-items: start;
+  margin-bottom: var(--item-margin, 1rem);
+}
+
+/* label-orientation = vertical: one column, so the label stacks above. */
+.vertical {
+  grid-template-columns: 1fr;
+}
+
+/* No item.text — drop the label column rather than leave an empty gutter. */
+.noLabel {
+  grid-template-columns: 1fr;
+}
+
+.label {
+  font-weight: 600;
+  order: var(--item-label-order, 0);
+}
+
+/* The input, its trimmings and its error message: one cell, stacked. Grouped
+   controls put their whole radio/checkbox group in here as a single child. */
+.field {
+  order: var(--item-field-order, 0);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+/* Direct children only: the radios inside a choice or boolean group are nested
+   deeper, and must not be stretched to the width of a text box. */
+.field > input,
+.field > select {
+  padding: 0.4rem;
+  font: inherit;
+  width: 100%;
+  max-width: 24rem;
+}
+
+/* Every control's read-only branch renders its answer through this. */
+.value {
+  color: #444;
+}
+
+.error {
+  color: #b00020;
+  font-size: 0.875rem;
+}
+
+/* GroupControl. Shared because osh/ controls render group shells too. */
+.group {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+.group > legend {
+  font-weight: 700;
+  padding: 0 0.5rem;
+}
+
+/* Loud on purpose — this is the extensibility gap report rendering itself.
+   Used by UnsupportedControl and by every not-yet-implemented placeholder
+   control, which is why it lives here rather than with UnsupportedControl. */
+.unsupported {
+  border: 2px dashed #d97706;
+  background: #fffbeb;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  font-family: ui-monospace, monospace;
+}
+
+/* Below this width a label column leaves nothing usable for the field, so
+   every item falls back to label-above-input regardless of its orientation. */
+@media (max-width: 720px) {
+  .item {
+    grid-template-columns: 1fr;
+  }
+}

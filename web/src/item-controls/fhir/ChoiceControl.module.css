@@ -1,0 +1,38 @@
+/* Styles for ChoiceControl.tsx.
+
+   Class names are scoped by the compiler, so the `choice__` prefixes these
+   rules used to carry are gone: `.option` here cannot collide with `.option`
+   in BooleanControl.module.css. Name for the role within this control.
+
+   The label/field grid this control used to own now lives in the shared
+   vocabulary (`.item`, `.label`, `.field` in item-controls.module.css), where
+   every control shares it and the label-orientation extension can drive it.
+   The `--choice-*` custom properties it published moved with it and are now
+   `--item-*`; see the STYLE API header there. What is left here is the part
+   that is genuinely choice-specific: how the options stack against each
+   other, which questionnaire-choiceOrientation controls. */
+
+.options {
+  display: flex;
+  gap: 0.35rem 1.5rem;
+}
+.optionsVertical {
+  flex-direction: column;
+}
+.optionsHorizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.option {
+  display: flex;
+  gap: 0.4rem;
+  align-items: baseline;
+  font-weight: 400;
+}
+
+.clear {
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.1rem 0.4rem;
+}

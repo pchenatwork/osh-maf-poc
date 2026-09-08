@@ -1,0 +1,6 @@
+@Osh.Maf.Api_HostAddress = http://localhost:5082
+
+GET {{Osh.Maf.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

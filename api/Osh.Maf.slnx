@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../definitions/asthma-maf-2026.02.json" />
+    <File Path="../definitions/toy-form-1.0.json" />
+    <File Path="../definitions/toy-form-1.1.json" />
+  </Folder>
+  <Project Path="Osh.Maf.Api/Osh.Maf.Api.csproj" />
+  <Project Path="Osh.Maf.Data/Osh.Maf.Data.csproj" />
+  <Project Path="Osh.Maf.Tests/Osh.Maf.Tests.csproj" />
+</Solution>

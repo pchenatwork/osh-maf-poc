@@ -1,0 +1,221 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "my-maf-form-1-0",
+  "url": "http://schools.nyc.gov/osh/Questionnaire/my-maf",
+  "version": "1.0",
+  "name": "MyMafForm",
+  "title": "Toy MAF Form — risk panel",
+  "status": "active",
+  "experimental": true,
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-09-06",
+  "description": "Exercises ChoiceControl (horizontal Y/N/U rows with conditional follow-ups, plus a matrix of every presentation), the risk panel in its one standard shape — one group per line item — and the label-orientation extension.",
+  "item": [
+    {
+      "linkId": "how-it-works",
+      "text": "Run-time form generation. The server returns one FHIR R4 Questionnaire and the renderer walks its item tree, choosing a control per item.type - a group becomes a section, a choice becomes the buttons below built from its answerOption codes, and enableWhen decides what appears as you answer. Your entries are collected into a QuestionnaireResponse that mirrors the same tree, stores each answer as a typed FHIR value, and pins this definition by url|version. A new form is therefore a new JSON definition, not new code.",
+      "type": "display",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-displayCategory",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-display-category",
+                "code": "instructions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "risk-panel",
+      "text": "Student Asthma Risk Assessment Questionnaire (Y = Yes, N = No, U = Unknown)",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "risk.Q1",
+          "text": "Q1 - History of life-threatening asthma (loss of consciousness, hypoxic seizure, or intubation)",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "risk.Q1.answer",
+              "text": "Q1 - History of life-threatening asthma (loss of consciousness, hypoxic seizure, or intubation)",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "Y",
+                    "display": "Y"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "N",
+                    "display": "N"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "U",
+                    "display": "U"
+                  }
+                }
+              ],
+              "required": true
+            }
+          ]
+        },
+        {
+          "linkId": "risk.Q2",
+          "text": "Q2 - Received oral steroids within past 12 months",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "risk.Q2.answer",
+              "text": "Q2 - Received oral steroids within past 12 months",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "Y",
+                    "display": "Y"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "N",
+                    "display": "N"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "U",
+                    "display": "U"
+                  }
+                }
+              ],
+              "required": true
+            },
+            {
+              "linkId": "risk.Q2.count",
+              "text": "How many times",
+              "type": "integer",
+              "required": true,
+              "enableWhen": [
+                {
+                  "question": "risk.Q2.answer",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "Y"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "risk.Q2.last",
+              "text": "Last occurrence",
+              "type": "date",
+              "enableWhen": [
+                {
+                  "question": "risk.Q2.answer",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "Y"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "risk.Q3",
+          "text": "Q3 - History of food allergy or eczema",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "risk.Q3.answer",
+              "text": "Q3 - History of food allergy or eczema",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "Y",
+                    "display": "Y"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "N",
+                    "display": "N"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "U",
+                    "display": "U"
+                  }
+                }
+              ],
+              "required": true
+            },
+            {
+              "linkId": "risk.Q3.specify",
+              "text": "Specify",
+              "type": "string",
+              "required": true,
+              "enableWhen": [
+                {
+                  "question": "risk.Q3.answer",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                    "code": "Y"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control",
+          "valueCode": "osh-risk-panel"
+        }
+      ]
+    }
+  ]
+}

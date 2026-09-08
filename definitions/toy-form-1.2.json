@@ -1,0 +1,656 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "toy-form-1-2",
+  "url": "http://schools.nyc.gov/osh/Questionnaire/toy",
+  "version": "1.2",
+  "name": "ToyForm",
+  "title": "Toy MAF Form — risk panel rows",
+  "status": "active",
+  "experimental": true,
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-09-06",
+  "description": "Exercises ChoiceControl: horizontal Y/N/U rows with conditional follow-ups, plus a matrix of every presentation the control supports.",
+  "item": [
+    {
+      "linkId": "risk-panel",
+      "text": "Student Asthma Risk Assessment Questionnaire (Y = Yes, N = No, U = Unknown)",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "risk.life-threatening.answer",
+          "text": "History of life-threatening asthma (loss of consciousness, hypoxic seizure, or intubation)",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y",
+                "display": "Y"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "N",
+                "display": "N"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "U",
+                "display": "U"
+              }
+            }
+          ],
+          "required": true
+        },
+        {
+          "linkId": "risk.picu.answer",
+          "text": "History of asthma-related PICU admissions (ever)",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y",
+                "display": "Y"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "N",
+                "display": "N"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "U",
+                "display": "U"
+              }
+            }
+          ],
+          "required": true
+        },
+        {
+          "linkId": "risk.oral-steroids.answer",
+          "text": "Received oral steroids within past 12 months",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y",
+                "display": "Y"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "N",
+                "display": "N"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "U",
+                "display": "U"
+              }
+            }
+          ],
+          "required": true
+        },
+        {
+          "linkId": "risk.oral-steroids.count",
+          "text": "How many times",
+          "type": "integer",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "risk.oral-steroids.answer",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ]
+        },
+        {
+          "linkId": "risk.oral-steroids.last",
+          "text": "Last occurrence",
+          "type": "date",
+          "enableWhen": [
+            {
+              "question": "risk.oral-steroids.answer",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "risk.er-visits.answer",
+          "text": "History of asthma-related ER visits within past 12 months",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y",
+                "display": "Y"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "N",
+                "display": "N"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "U",
+                "display": "U"
+              }
+            }
+          ],
+          "required": true
+        },
+        {
+          "linkId": "risk.er-visits.count",
+          "text": "How many times",
+          "type": "integer",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "risk.er-visits.answer",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "risk.er-visits.last",
+          "text": "Last occurrence",
+          "type": "date",
+          "enableWhen": [
+            {
+              "question": "risk.er-visits.answer",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "risk.hospitalizations.answer",
+          "text": "History of asthma-related hospitalizations within past 12 months",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y",
+                "display": "Y"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "N",
+                "display": "N"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "U",
+                "display": "U"
+              }
+            }
+          ],
+          "required": true
+        },
+        {
+          "linkId": "risk.hospitalizations.count",
+          "text": "How many times",
+          "type": "integer",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "risk.hospitalizations.answer",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "risk.hospitalizations.last",
+          "text": "Last occurrence",
+          "type": "date",
+          "enableWhen": [
+            {
+              "question": "risk.hospitalizations.answer",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "risk.allergy-eczema.answer",
+          "text": "History of food allergy or eczema",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y",
+                "display": "Y"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "N",
+                "display": "N"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "U",
+                "display": "U"
+              }
+            }
+          ],
+          "required": true
+        },
+        {
+          "linkId": "risk.allergy-eczema.specify",
+          "text": "Specify",
+          "type": "string",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "risk.allergy-eczema.answer",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "risk.saba-overuse.answer",
+          "text": "Excessive Short Acting Beta Agonist (SABA) use (daily or > 2 times a week)?",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y",
+                "display": "Y"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "N",
+                "display": "N"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "U",
+                "display": "U"
+              }
+            }
+          ]
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control",
+          "valueCode": "osh-risk-panel"
+        }
+      ]
+    },
+    {
+      "linkId": "matrix",
+      "text": "ChoiceControl presentation matrix",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "m.notice",
+          "type": "display",
+          "text": "Delete this group once you have seen what each combination does — it is a test harness for ChoiceControl, not part of the risk panel."
+        },
+        {
+          "linkId": "m.vertical-radio",
+          "text": "Vertical radio (no extensions — the default)",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "N",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "U",
+                "display": "Unknown"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "m.horizontal-checkbox",
+          "text": "Horizontal checkboxes (repeats: true + choiceOrientation)",
+          "type": "choice",
+          "repeats": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "N",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "U",
+                "display": "Unknown"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "m.dropdown",
+          "text": "Drop-down (itemControl — note valueCodeableConcept)",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "drop-down",
+                    "display": "Drop down"
+                  }
+                ]
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "N",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "U",
+                "display": "Unknown"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "m.integers",
+          "text": "Non-Coding options (valueInteger)",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueInteger": 1
+            },
+            {
+              "valueInteger": 2
+            },
+            {
+              "valueInteger": 3
+            }
+          ]
+        },
+        {
+          "linkId": "m.nolabel",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "Y",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "N",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                "code": "U",
+                "display": "Unknown"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "display-demo",
+      "text": "DisplayControl categories (Plain, instructions, security, help, (uncategorized), xhtml)",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "d.plain",
+          "type": "display",
+          "text": "1. Plain display, no category. This is how the eight consent paragraphs render — body text the reader is agreeing to, not a hint.\nThis second line proves authored line breaks survive."
+        },
+        {
+          "linkId": "d.instructions",
+          "type": "display",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-displayCategory",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-display-category",
+                    "code": "instructions"
+                  }
+                ]
+              }
+            }
+          ],
+          "text": "2. instructions — how to fill the form in. Subordinate to the questions."
+        },
+        {
+          "linkId": "d.security",
+          "type": "display",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-displayCategory",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-display-category",
+                    "code": "security"
+                  }
+                ]
+              }
+            }
+          ],
+          "text": "3. security — how this information will be handled. The one category given visual weight, because it should stop the reader."
+        },
+        {
+          "linkId": "d.help",
+          "type": "display",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-displayCategory",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-display-category",
+                    "code": "help"
+                  }
+                ]
+              }
+            }
+          ],
+          "text": "4. help — the spec says this is not necessarily rendered inline at all, so it renders quietly."
+        },
+        {
+          "linkId": "d.unknown-category",
+          "type": "display",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-displayCategory",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-display-category",
+                    "code": "not-a-real-code"
+                  }
+                ]
+              }
+            }
+          ],
+          "text": "5. (Unrecognised category code) — falls back to a plain paragraph. An unknown category must never cost the reader the text."
+        },
+        {
+          "linkId": "d.xhtml",
+          "type": "display",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+              "valueString": "<b onmouseover=\"alert(1)\">markup from the server</b>"
+            }
+          ],
+          "text": "6. xhtml - This item carries a rendering-xhtml extension with an event handler in it. The markup is dropped and you are reading item.text instead — that is the control working, not failing."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+    "resourceType": "Questionnaire",
+    "id": "my-maf-form-1-0",
+    "url": "http://schools.nyc.gov/osh/Questionnaire/my-maf",
+    "version": "1.0",
+    "name": "MyMafForm",
+    "title": "Toy MAF Form — risk panel rows, label orientation",
+    "status": "active",
+    "experimental": true,
+    "subjectType": [
+        "Patient"
+    ],
+    "date": "2026-09-06",
+    "description": "Exercises ChoiceControl (horizontal Y/N/U rows with conditional follow-ups, plus a matrix of every presentation), the risk panel in its one standard shape — one group per line item — and the label-orientation extension.",
+    "item": [{
+            "linkId": "risk-panel",
+            "text": "Student Asthma Risk Assessment Questionnaire (Y = Yes, N = No, U = Unknown)",
+            "type": "group",
+            "item": [{
+                    "linkId": "risk.Q1",
+                    "text": "Q1 - History of life-threatening asthma (loss of consciousness, hypoxic seizure, or intubation) (linkId=risk.Q1)",
+                    "type": "group",
+                    "item": [{
+                            "linkId": "risk.Q1.answer",
+                            "text": "Q1 - History of life-threatening asthma (loss of consciousness, hypoxic seizure, or intubation)  (linkId=risk.Q1.answer)",
+                            "type": "choice",
+                            "extension": [{
+                                    "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                                    "valueCode": "horizontal"
+                                }
+                            ],
+                            "answerOption": [{
+                                    "valueCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "Y",
+                                        "display": "Y"
+                                    }
+                                }, {
+                                    "valueCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "N",
+                                        "display": "N"
+                                    }
+                                }, {
+                                    "valueCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "U",
+                                        "display": "U"
+                                    }
+                                }
+                            ],
+                            "required": true
+                        }
+                    ]
+                }, {
+                    "linkId": "risk.Q2",
+                    "text": "Q2 - Received oral steroids within past 12 months  (linkId=risk.Q2)",
+                    "type": "group",
+                    "item": [{
+                            "linkId": "risk.Q2.answer",
+                            "text": "Q2 - Received oral steroids within past 12 months (linkId=risk.Q2.answer)",
+                            "type": "choice",
+                            "extension": [{
+                                    "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                                    "valueCode": "horizontal"
+                                }
+                            ],
+                            "answerOption": [{
+                                    "valueCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "Y",
+                                        "display": "Y"
+                                    }
+                                }, {
+                                    "valueCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "N",
+                                        "display": "N"
+                                    }
+                                }, {
+                                    "valueCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "U",
+                                        "display": "U"
+                                    }
+                                }
+                            ],
+                            "required": true
+                        }, {
+                            "linkId": "risk.Q2.count",
+                            "text": "How many times",
+                            "type": "integer",
+                            "required": true,
+                            "enableWhen": [{
+                                    "question": "risk.Q2.answer",
+                                    "operator": "=",
+                                    "answerCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "Y"
+                                    }
+                                }
+                            ]
+                        }, {
+                            "linkId": "risk.Q2.last",
+                            "text": "Last occurrence",
+                            "type": "date",
+                            "enableWhen": [{
+                                    "question": "risk.Q2.answer",
+                                    "operator": "=",
+                                    "answerCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "Y"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }, {
+                    "linkId": "risk.Q3",
+                    "text": "Q3 - History of food allergy or eczema (linkId: risk.Q3)",
+                    "type": "group",
+                    "item": [{
+                            "linkId": "risk.Q3.answer",
+                            "text": "Q3 - History of food allergy or eczema (linkId: risk.Q3.answer)",
+                            "type": "choice",
+                            "extension": [{
+                                    "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                                    "valueCode": "horizontal"
+                                }
+                            ],
+                            "answerOption": [{
+                                    "valueCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "Y",
+                                        "display": "Y"
+                                    }
+                                }, {
+                                    "valueCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "N",
+                                        "display": "N"
+                                    }
+                                }, {
+                                    "valueCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "U",
+                                        "display": "U"
+                                    }
+                                }
+                            ],
+                            "required": true
+                        }, {
+                            "linkId": "risk.Q3.specify",
+                            "text": "Specify",
+                            "type": "string",
+                            "required": true,
+                            "enableWhen": [{
+                                    "question": "risk.Q3.answer",
+                                    "operator": "=",
+                                    "answerCoding": {
+                                        "system": "http://schools.nyc.gov/osh/CodeSystem/ynu",
+                                        "code": "Y"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "extension": [{
+                    "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control",
+                    "valueCode": "osh-risk-panel"
+                }
+            ]
+        }
+    ]
+}

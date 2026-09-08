@@ -1,0 +1,31 @@
+/* Styles for DisplayControl.tsx. */
+
+.display {
+  /* Authored line breaks in item.text survive; runs of spaces collapse.
+     The consent paragraphs are written with deliberate breaks, and losing
+     them changes how a legal notice reads. */
+  white-space: pre-line;
+  margin: 0 0 var(--item-margin, 1rem);
+  max-width: 46rem;
+}
+
+/* "How to fill this in." Present but subordinate to the questions. */
+.instructions {
+  font-style: italic;
+  color: #444;
+}
+
+/* "How this information will be handled." The one category that should stop
+   a reader, so it gets the only visual weight here. */
+.security {
+  border-left: 3px solid #b00020;
+  padding-left: 0.75rem;
+  font-weight: 600;
+}
+
+/* The spec says help text is not necessarily rendered inline at all. Quiet
+   is the closest honest approximation without inventing a disclosure widget. */
+.help {
+  font-size: 0.875rem;
+  color: #444;
+}

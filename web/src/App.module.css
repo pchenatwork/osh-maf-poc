@@ -1,0 +1,29 @@
+/* The application shell: page frame and mode switcher.
+
+   Nothing about an individual form control belongs here — that vocabulary
+   lives in item-controls/item-controls.module.css.
+
+   Global element rules and the colour tokens stay in index.css, which is not
+   a module: :root and bare element selectors are not scoped by CSS Modules,
+   so putting them here would only disguise their global reach. */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 550px;
+  gap: 2rem;
+  padding: 1.5rem;
+}
+
+.main {
+  /* max-width: 60rem; */
+}
+
+.modes {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.modes button[aria-pressed="true"] {
+  font-weight: 700;
+  outline: 2px solid currentColor;
+}

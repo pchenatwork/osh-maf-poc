@@ -1,0 +1,1700 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "asthma-maf-2026-02",
+  "meta": {
+    "tag": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+        "code": "HTEST",
+        "display": "test health data"
+      },
+      {
+        "system": "http://schools.nyc.gov/osh/CodeSystem/data-quality",
+        "code": "ILLUSTRATIVE-CODES",
+        "display": "Terminology codes are illustrative and not yet validated"
+      }
+    ]
+  },
+  "url": "http://schools.nyc.gov/osh/Questionnaire/asthma-maf",
+  "version": "2026.02",
+  "name": "AsthmaMedicationAdministrationForm",
+  "title": "Asthma Medication Administration Form (MAF) — School Year 2026-2027",
+  "status": "active",
+  "experimental": true,
+  "subjectType": ["Patient"],
+  "date": "2026-02-01",
+  "publisher": "NYC Department of Education — Office of School Health",
+  "contact": [
+    {
+      "name": "Office of School Health",
+      "telecom": [
+        { "system": "url", "value": "http://schools.nyc.gov/osh" }
+      ]
+    }
+  ],
+  "description": "Runtime form definition for the NYC DOE Office of School Health Asthma Medication Administration Form, Provider Medication Order Form, School Year 2026-2027 (paper revision REV 2/26). Structured so that a completed QuestionnaireResponse can be extracted into discrete MedicationRequest, Consent, Condition and Observation resources.",
+  "purpose": "Replace the paper MAF hand-off chain with a versioned, schema-driven electronic form whose answers become structured clinical data in the OSH EHR.",
+  "copyright": "New York City Department of Education, Office of School Health.",
+  "effectivePeriod": {
+    "start": "2026-09-01",
+    "end": "2027-08-31"
+  },
+  "code": [
+    {
+      "system": "http://loinc.org",
+      "code": "51851-4",
+      "display": "Administrative note"
+    }
+  ],
+  "item": [
+    {
+      "linkId": "notices",
+      "text": "Form notices",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "notices.header",
+          "text": "ASTHMA MEDICATION ADMINISTRATION FORM — PROVIDER MEDICATION ORDER FORM | Office of School Health | School Year 2026-2027",
+          "type": "display"
+        },
+        {
+          "linkId": "notices.return",
+          "text": "Please return to School Nurse/School Based Health Center. Forms submitted after June 1st may delay processing for new school year.",
+          "type": "display"
+        },
+        {
+          "linkId": "notices.resident",
+          "text": "FORMS CANNOT BE COMPLETED BY A RESIDENT. PARENTS MUST SIGN PAGE 2.",
+          "type": "display"
+        },
+        {
+          "linkId": "notices.incomplete",
+          "text": "INCOMPLETE PRACTITIONER INFORMATION WILL DELAY IMPLEMENTATION OF MEDICATION ORDERS.",
+          "type": "display"
+        },
+        {
+          "linkId": "notices.revision",
+          "text": "Paper form revision: REV 2/26",
+          "type": "display"
+        }
+      ]
+    },
+
+    {
+      "linkId": "student",
+      "text": "Student Identification",
+      "type": "group",
+      "required": true,
+      "item": [
+        {
+          "linkId": "student.last-name",
+          "text": "Student Last Name",
+          "type": "string",
+          "required": true,
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.name.family"
+        },
+        {
+          "linkId": "student.first-name",
+          "text": "First Name",
+          "type": "string",
+          "required": true,
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.name.given"
+        },
+        {
+          "linkId": "student.middle-initial",
+          "text": "Middle Initial",
+          "type": "string",
+          "maxLength": 1,
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.name.given"
+        },
+        {
+          "linkId": "student.dob",
+          "text": "Date of Birth",
+          "type": "date",
+          "required": true,
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.birthDate"
+        },
+        {
+          "linkId": "student.sex",
+          "text": "Sex",
+          "type": "choice",
+          "required": true,
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "answerOption": [
+            { "valueCoding": { "system": "http://hl7.org/fhir/administrative-gender", "code": "male", "display": "Male" } },
+            { "valueCoding": { "system": "http://hl7.org/fhir/administrative-gender", "code": "female", "display": "Female" } }
+          ]
+        },
+        {
+          "linkId": "student.osis",
+          "text": "OSIS Number",
+          "type": "string",
+          "required": true,
+          "maxLength": 20,
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.identifier.value"
+        },
+        {
+          "linkId": "student.grade",
+          "text": "Grade",
+          "type": "string",
+          "maxLength": 4
+        },
+        {
+          "linkId": "student.class",
+          "text": "Class",
+          "type": "string",
+          "maxLength": 10
+        },
+        {
+          "linkId": "student.district",
+          "text": "DOE District",
+          "type": "string",
+          "maxLength": 10
+        },
+        {
+          "linkId": "student.school",
+          "text": "School (include: ATS DBN/Name, address, and borough)",
+          "type": "group",
+          "item": [
+            { "linkId": "student.school.dbn", "text": "ATS DBN", "type": "string", "maxLength": 10 },
+            { "linkId": "student.school.name", "text": "School Name", "type": "string" },
+            { "linkId": "student.school.address", "text": "School Address", "type": "string" },
+            {
+              "linkId": "student.school.borough",
+              "text": "Borough",
+              "type": "choice",
+              "answerOption": [
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/borough", "code": "M", "display": "Manhattan" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/borough", "code": "X", "display": "Bronx" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/borough", "code": "K", "display": "Brooklyn" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/borough", "code": "Q", "display": "Queens" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/borough", "code": "R", "display": "Staten Island" } }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "linkId": "practitioner-section",
+      "text": "HEALTH CARE PRACTITIONERS COMPLETE BELOW",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://schools.nyc.gov/osh/StructureDefinition/osh-lane",
+          "valueCode": "practitioner"
+        }
+      ],
+      "item": [
+
+        {
+          "linkId": "diagnosis",
+          "text": "Diagnosis",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "diagnosis.code",
+              "text": "Diagnosis",
+              "type": "choice",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/Condition#Condition.code",
+              "answerOption": [
+                { "valueCoding": { "system": "http://snomed.info/sct", "code": "195967001", "display": "Asthma" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/maf-diagnosis", "code": "other", "display": "Other" } }
+              ]
+            },
+            {
+              "linkId": "diagnosis.other",
+              "text": "Other diagnosis (specify)",
+              "type": "string",
+              "required": true,
+              "enableWhen": [
+                {
+                  "question": "diagnosis.code",
+                  "operator": "=",
+                  "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/maf-diagnosis", "code": "other" }
+                }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/Condition#Condition.code.text"
+            },
+            {
+              "linkId": "diagnosis.severity",
+              "text": "Severity (see NAEPP Guidelines)",
+              "type": "choice",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/Condition#Condition.severity",
+              "answerOption": [
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-severity", "code": "intermittent", "display": "Intermittent" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-severity", "code": "mild-persistent", "display": "Mild Persistent" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-severity", "code": "moderate-persistent", "display": "Moderate Persistent" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-severity", "code": "severe-persistent", "display": "Severe Persistent" } }
+              ]
+            },
+            {
+              "linkId": "diagnosis.control",
+              "text": "Control (see NAEPP Guidelines)",
+              "type": "choice",
+              "required": true,
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
+              "answerOption": [
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-control", "code": "well-controlled", "display": "Well Controlled" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-control", "code": "not-controlled", "display": "Not Controlled / Poorly Controlled" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-control", "code": "unknown", "display": "Unknown" } }
+              ]
+            }
+          ]
+        },
+
+        {
+          "linkId": "risk-panel",
+          "text": "Student Asthma Risk Assessment Questionnaire (Y = Yes, N = No, U = Unknown)",
+          "type": "group",
+          "extension": [
+            {
+              "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control",
+              "valueCode": "osh-risk-panel"
+            }
+          ],
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.component",
+          "item": [
+            {
+              "linkId": "risk.life-threatening",
+              "text": "History of life-threatening asthma (loss of consciousness, hypoxic seizure, or intubation)",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "risk.life-threatening.answer",
+                  "text": "History of life-threatening asthma",
+                  "type": "choice",
+                  "required": true,
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                      "valueCode": "horizontal"
+                    }
+                  ],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.component.valueCodeableConcept",
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y", "display": "Yes" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "N", "display": "No" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "U", "display": "Unknown" } }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "risk.picu",
+              "text": "History of asthma-related PICU admissions (ever)",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "risk.picu.answer",
+                  "text": "History of asthma-related PICU admissions (ever)",
+                  "type": "choice",
+                  "required": true,
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                      "valueCode": "horizontal"
+                    }
+                  ],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.component.valueCodeableConcept",
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y", "display": "Yes" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "N", "display": "No" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "U", "display": "Unknown" } }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "risk.oral-steroids",
+              "text": "Received oral steroids within past 12 months",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "risk.oral-steroids.answer",
+                  "text": "Received oral steroids within past 12 months",
+                  "type": "choice",
+                  "required": true,
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                      "valueCode": "horizontal"
+                    }
+                  ],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.component.valueCodeableConcept",
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y", "display": "Yes" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "N", "display": "No" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "U", "display": "Unknown" } }
+                  ]
+                },
+                {
+                  "linkId": "risk.oral-steroids.count",
+                  "text": "How many times",
+                  "type": "integer",
+                  "required": true,
+                  "enableWhen": [
+                    { "question": "risk.oral-steroids.answer", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y" } }
+                  ]
+                },
+                {
+                  "linkId": "risk.oral-steroids.last",
+                  "text": "Last occurrence",
+                  "type": "date",
+                  "enableWhen": [
+                    { "question": "risk.oral-steroids.answer", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y" } }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "risk.er-visits",
+              "text": "History of asthma-related ER visits within past 12 months",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "risk.er-visits.answer",
+                  "text": "History of asthma-related ER visits within past 12 months",
+                  "type": "choice",
+                  "required": true,
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                      "valueCode": "horizontal"
+                    }
+                  ],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.component.valueCodeableConcept",
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y", "display": "Yes" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "N", "display": "No" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "U", "display": "Unknown" } }
+                  ]
+                },
+                {
+                  "linkId": "risk.er-visits.count",
+                  "text": "How many times",
+                  "type": "integer",
+                  "required": true,
+                  "enableWhen": [
+                    { "question": "risk.er-visits.answer", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y" } }
+                  ]
+                },
+                {
+                  "linkId": "risk.er-visits.last",
+                  "text": "Last occurrence",
+                  "type": "date",
+                  "enableWhen": [
+                    { "question": "risk.er-visits.answer", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y" } }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "risk.hospitalizations",
+              "text": "History of asthma-related hospitalizations within past 12 months",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "risk.hospitalizations.answer",
+                  "text": "History of asthma-related hospitalizations within past 12 months",
+                  "type": "choice",
+                  "required": true,
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                      "valueCode": "horizontal"
+                    }
+                  ],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.component.valueCodeableConcept",
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y", "display": "Yes" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "N", "display": "No" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "U", "display": "Unknown" } }
+                  ]
+                },
+                {
+                  "linkId": "risk.hospitalizations.count",
+                  "text": "How many times",
+                  "type": "integer",
+                  "required": true,
+                  "enableWhen": [
+                    { "question": "risk.hospitalizations.answer", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y" } }
+                  ]
+                },
+                {
+                  "linkId": "risk.hospitalizations.last",
+                  "text": "Last occurrence",
+                  "type": "date",
+                  "enableWhen": [
+                    { "question": "risk.hospitalizations.answer", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y" } }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "risk.allergy-eczema",
+              "text": "History of food allergy or eczema",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "risk.allergy-eczema.answer",
+                  "text": "History of food allergy or eczema",
+                  "type": "choice",
+                  "required": true,
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                      "valueCode": "horizontal"
+                    }
+                  ],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.component.valueCodeableConcept",
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y", "display": "Yes" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "N", "display": "No" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "U", "display": "Unknown" } }
+                  ]
+                },
+                {
+                  "linkId": "risk.allergy-eczema.specify",
+                  "text": "Specify",
+                  "type": "string",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.component.note",
+                  "enableWhen": [
+                    { "question": "risk.allergy-eczema.answer", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y" } }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "risk.saba-overuse",
+              "text": "Excessive Short Acting Beta Agonist (SABA) use (daily or > 2 times a week)?",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "risk.saba-overuse.answer",
+                  "text": "Excessive SABA use (daily or > 2 times a week)?",
+                  "type": "choice",
+                  "required": true,
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                      "valueCode": "horizontal"
+                    }
+                  ],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.component.valueCodeableConcept",
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "Y", "display": "Yes" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "N", "display": "No" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/ynu", "code": "U", "display": "Unknown" } }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          "linkId": "home-meds",
+          "text": "Home Medications (include over the counter)",
+          "type": "group",
+          "definition": "http://hl7.org/fhir/StructureDefinition/MedicationStatement#MedicationStatement",
+          "item": [
+            {
+              "linkId": "home-meds.none",
+              "text": "None",
+              "type": "boolean",
+              "initial": [{ "valueBoolean": false }]
+            },
+            {
+              "linkId": "home-meds.reliever",
+              "text": "Reliever",
+              "type": "open-choice",
+              "repeats": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/MedicationStatement#MedicationStatement.medicationCodeableConcept",
+              "enableWhen": [
+                { "question": "home-meds.none", "operator": "!=", "answerBoolean": true }
+              ],
+              "answerOption": [
+                { "valueCoding": { "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "435", "display": "Albuterol" } },
+                { "valueCoding": { "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "1652088", "display": "Budesonide / Formoterol" } }
+              ]
+            },
+            {
+              "linkId": "home-meds.controller",
+              "text": "Controller",
+              "type": "open-choice",
+              "repeats": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/MedicationStatement#MedicationStatement.medicationCodeableConcept",
+              "enableWhen": [
+                { "question": "home-meds.none", "operator": "!=", "answerBoolean": true }
+              ],
+              "answerOption": [
+                { "valueCoding": { "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "435", "display": "Albuterol" } },
+                { "valueCoding": { "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "1652088", "display": "Budesonide / Formoterol" } }
+              ]
+            },
+            {
+              "linkId": "home-meds.other",
+              "text": "Other home medications (including over the counter)",
+              "type": "text",
+              "enableWhen": [
+                { "question": "home-meds.none", "operator": "!=", "answerBoolean": true }
+              ]
+            }
+          ]
+        },
+
+        {
+          "linkId": "skill-level",
+          "text": "Student Skill Level (select the most appropriate option)",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "skill-level.value",
+              "text": "Student Skill Level",
+              "type": "choice",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
+              "answerOption": [
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/skill-level", "code": "nurse-dependent", "display": "Nurse-Dependent Student: nurse must administer medication" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/skill-level", "code": "supervised", "display": "Supervised Student: student self-administers, under adult supervision" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/skill-level", "code": "independent", "display": "Independent Student: student is self-carry/self-administer" } }
+              ]
+            },
+            {
+              "linkId": "skill-level.attestation",
+              "text": "I attest student demonstrated ability to self-administer the prescribed medication effectively during school, field trips, and school-sponsored events.",
+              "type": "boolean",
+              "required": true,
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-attestation" }
+              ],
+              "enableWhen": [
+                { "question": "skill-level.value", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/skill-level", "code": "independent" } }
+              ]
+            },
+            {
+              "linkId": "skill-level.practitioner-initials",
+              "text": "Practitioner's Initials",
+              "type": "string",
+              "required": true,
+              "maxLength": 5,
+              "enableWhen": [
+                { "question": "skill-level.attestation", "operator": "=", "answerBoolean": true }
+              ]
+            }
+          ]
+        },
+
+        {
+          "linkId": "quick-relief",
+          "text": "Quick Relief In-School Medication",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "quick-relief.emergency-plan",
+              "text": "Emergency Plan: If in Respiratory Distress: call 911 and give albuterol 6 puffs; may repeat Q20 minutes until EMS arrives.",
+              "type": "display"
+            },
+            {
+              "linkId": "quick-relief.spacer-notice",
+              "text": "Individual spacers are provided by the school. Schools will only provide Albuterol MDI and Fluticasone 110 mcg.",
+              "type": "display"
+            },
+
+            {
+              "linkId": "order.standard-albuterol",
+              "text": "Standard Albuterol Order",
+              "type": "group",
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-medication-order" }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest",
+              "item": [
+                {
+                  "linkId": "order.standard-albuterol.accept",
+                  "text": "Standard Albuterol Order: 2 puffs Q4 hours PRN cough, wheezing, difficulty breathing, chest tightness or shortness of breath. Monitor for 20 minutes or until symptom-free. If not symptom-free within 20 minutes may repeat ONCE.",
+                  "type": "boolean",
+                  "required": true,
+                  "initial": [{ "valueBoolean": true }],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.status"
+                }
+              ]
+            },
+
+            {
+              "linkId": "order.pre-exercise",
+              "text": "Pre-exercise",
+              "type": "group",
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-medication-order" }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest",
+              "item": [
+                {
+                  "linkId": "order.pre-exercise.selected",
+                  "text": "Order pre-exercise medication",
+                  "type": "boolean",
+                  "initial": [{ "valueBoolean": false }]
+                },
+                {
+                  "linkId": "order.pre-exercise.medication",
+                  "text": "Medication",
+                  "type": "choice",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.medicationCodeableConcept",
+                  "enableWhen": [
+                    { "question": "order.pre-exercise.selected", "operator": "=", "answerBoolean": true }
+                  ],
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "435", "display": "Albuterol" } },
+                    { "valueCoding": { "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "1652088", "display": "Budesonide / Formoterol" } }
+                  ]
+                },
+                {
+                  "linkId": "order.pre-exercise.dose-puffs",
+                  "text": "Dose (puffs)",
+                  "type": "integer",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.doseAndRate.doseQuantity.value",
+                  "enableWhen": [
+                    { "question": "order.pre-exercise.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.pre-exercise.dose-amp",
+                  "text": "Dose (AMP)",
+                  "type": "string",
+                  "enableWhen": [
+                    { "question": "order.pre-exercise.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.pre-exercise.timing",
+                  "text": "Timing",
+                  "type": "choice",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing",
+                  "enableWhen": [
+                    { "question": "order.pre-exercise.selected", "operator": "=", "answerBoolean": true }
+                  ],
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/pre-exercise-timing", "code": "before-exercise", "display": "15-20 minutes before exercise" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/pre-exercise-timing", "code": "prn", "display": "PRN" } }
+                  ]
+                },
+                {
+                  "linkId": "order.pre-exercise.prn-reason",
+                  "text": "PRN — specify",
+                  "type": "string",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.asNeededCodeableConcept",
+                  "enableWhen": [
+                    { "question": "order.pre-exercise.timing", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/pre-exercise-timing", "code": "prn" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "linkId": "order.uri-flare",
+              "text": "URI Symptoms / Recent Asthma Flare",
+              "type": "group",
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-medication-order" }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest",
+              "item": [
+                {
+                  "linkId": "order.uri-flare.selected",
+                  "text": "Order medication for URI symptoms / recent asthma flare",
+                  "type": "boolean",
+                  "initial": [{ "valueBoolean": false }]
+                },
+                {
+                  "linkId": "order.uri-flare.medication",
+                  "text": "Medication",
+                  "type": "choice",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.medicationCodeableConcept",
+                  "enableWhen": [
+                    { "question": "order.uri-flare.selected", "operator": "=", "answerBoolean": true }
+                  ],
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "435", "display": "Albuterol" } },
+                    { "valueCoding": { "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "1652088", "display": "Budesonide / Formoterol" } }
+                  ]
+                },
+                {
+                  "linkId": "order.uri-flare.dose-puffs",
+                  "text": "Dose (puffs)",
+                  "type": "integer",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.doseAndRate.doseQuantity.value",
+                  "enableWhen": [
+                    { "question": "order.uri-flare.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.uri-flare.dose-amp",
+                  "text": "Dose (AMP)",
+                  "type": "string",
+                  "enableWhen": [
+                    { "question": "order.uri-flare.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.uri-flare.frequency-hours",
+                  "text": "Every (hours)",
+                  "type": "integer",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.period",
+                  "enableWhen": [
+                    { "question": "order.uri-flare.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.uri-flare.duration-days",
+                  "text": "PRN symptoms for (days)",
+                  "type": "integer",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.boundsDuration",
+                  "enableWhen": [
+                    { "question": "order.uri-flare.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "linkId": "order.smart",
+              "text": "Other Anti-inflammatory Reliever Medication instead of Standard Albuterol Order: SMART/MART (ginasthma.org)",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "order.smart.notice",
+                  "text": "Administer medication for respiratory symptoms: cough, wheezing, difficulty breathing, chest tightness, or shortness of breath; if not symptom-free in 20 minutes, may repeat ONCE. The Standard Albuterol Order will be implemented if the medication prescribed below is unavailable.",
+                  "type": "display"
+                },
+                {
+                  "linkId": "order.smart.option",
+                  "text": "Alternative quick-relief order",
+                  "type": "choice",
+                  "required": true,
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/smart-option", "code": "none", "display": "None — Standard Albuterol Order only" }, "initialSelected": true },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/smart-option", "code": "budesonide-formoterol", "display": "Budesonide/formoterol (provided by parent)" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/smart-option", "code": "albuterol-with-ics", "display": "Albuterol with ICS (Fluticasone 110 mcg)" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/smart-option", "code": "albuterol-plus-parent-ics", "display": "Albuterol + ICS provided by parent" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/smart-option", "code": "other-quick-relief", "display": "Albuterol or Other Quick-Relief Medication" } }
+                  ]
+                },
+
+                {
+                  "linkId": "order.smart.budesonide-formoterol",
+                  "text": "Budesonide/formoterol (provided by parent)",
+                  "type": "group",
+                  "extension": [
+                    { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-medication-order" }
+                  ],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest",
+                  "enableWhen": [
+                    { "question": "order.smart.option", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/smart-option", "code": "budesonide-formoterol" } }
+                  ],
+                  "item": [
+                    {
+                      "linkId": "order.smart.budesonide-formoterol.strength",
+                      "text": "Strength",
+                      "type": "string",
+                      "required": true
+                    },
+                    {
+                      "linkId": "order.smart.budesonide-formoterol.dose",
+                      "text": "Dose every 4 hours PRN respiratory symptoms",
+                      "type": "choice",
+                      "required": true,
+                      "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.doseAndRate.doseQuantity.value",
+                      "answerOption": [
+                        { "valueInteger": 1 },
+                        { "valueInteger": 2 }
+                      ]
+                    }
+                  ]
+                },
+
+                {
+                  "linkId": "order.smart.albuterol-with-ics",
+                  "text": "Albuterol with ICS: Albuterol 2 puffs plus Fluticasone 110 mcg, every 4 hours PRN respiratory symptoms",
+                  "type": "group",
+                  "extension": [
+                    { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-medication-order" }
+                  ],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest",
+                  "enableWhen": [
+                    { "question": "order.smart.option", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/smart-option", "code": "albuterol-with-ics" } }
+                  ],
+                  "item": [
+                    {
+                      "linkId": "order.smart.albuterol-with-ics.fluticasone-puffs",
+                      "text": "Fluticasone 110 mcg — puffs",
+                      "type": "integer",
+                      "required": true,
+                      "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.doseAndRate.doseQuantity.value"
+                    }
+                  ]
+                },
+
+                {
+                  "linkId": "order.smart.albuterol-plus-parent-ics",
+                  "text": "Albuterol + ICS (provided by parent), every 4 hours PRN respiratory symptoms",
+                  "type": "group",
+                  "extension": [
+                    { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-medication-order" }
+                  ],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest",
+                  "enableWhen": [
+                    { "question": "order.smart.option", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/smart-option", "code": "albuterol-plus-parent-ics" } }
+                  ],
+                  "item": [
+                    {
+                      "linkId": "order.smart.albuterol-plus-parent-ics.albuterol-puffs",
+                      "text": "Albuterol — puffs",
+                      "type": "integer",
+                      "required": true,
+                      "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.doseAndRate.doseQuantity.value"
+                    },
+                    {
+                      "linkId": "order.smart.albuterol-plus-parent-ics.ics-name",
+                      "text": "ICS name",
+                      "type": "string",
+                      "required": true,
+                      "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.medicationCodeableConcept.text"
+                    },
+                    {
+                      "linkId": "order.smart.albuterol-plus-parent-ics.ics-strength",
+                      "text": "ICS strength",
+                      "type": "string",
+                      "required": true
+                    },
+                    {
+                      "linkId": "order.smart.albuterol-plus-parent-ics.ics-puffs",
+                      "text": "ICS — puffs",
+                      "type": "integer",
+                      "required": true,
+                      "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.doseAndRate.doseQuantity.value"
+                    }
+                  ]
+                },
+
+                {
+                  "linkId": "order.smart.other-quick-relief",
+                  "text": "Albuterol or Other Quick-Relief Medication",
+                  "type": "group",
+                  "extension": [
+                    { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-medication-order" }
+                  ],
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest",
+                  "enableWhen": [
+                    { "question": "order.smart.option", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/smart-option", "code": "other-quick-relief" } }
+                  ],
+                  "item": [
+                    {
+                      "linkId": "order.smart.other-quick-relief.name",
+                      "text": "Medication name",
+                      "type": "string",
+                      "required": true,
+                      "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.medicationCodeableConcept.text"
+                    },
+                    {
+                      "linkId": "order.smart.other-quick-relief.strength",
+                      "text": "Strength",
+                      "type": "string",
+                      "required": true
+                    },
+                    {
+                      "linkId": "order.smart.other-quick-relief.dose-puffs",
+                      "text": "Dose (puffs)",
+                      "type": "integer",
+                      "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.doseAndRate.doseQuantity.value"
+                    },
+                    {
+                      "linkId": "order.smart.other-quick-relief.dose-amp",
+                      "text": "Dose (AMP)",
+                      "type": "string"
+                    },
+                    {
+                      "linkId": "order.smart.other-quick-relief.frequency-hours",
+                      "text": "Every (hours) PRN respiratory symptoms",
+                      "type": "integer",
+                      "required": true,
+                      "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.period"
+                    }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "linkId": "quick-relief.special-instructions",
+              "text": "Special Instructions / Other Orders",
+              "type": "text",
+              "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.note"
+            }
+          ]
+        },
+
+        {
+          "linkId": "controller",
+          "text": "Controller Medications for In-School Administration (Recommended for Persistent Asthma, per NAEPP Guidelines)",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "controller.stock-notice",
+              "text": "Stock Fluticasone 110 mcg will be used if the prescribed medication below is not available. Only Fluticasone 110 mcg MDI is provided by school for shared usage.",
+              "type": "display"
+            },
+
+            {
+              "linkId": "order.fluticasone",
+              "text": "Fluticasone (standing daily dose)",
+              "type": "group",
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-medication-order" }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest",
+              "item": [
+                {
+                  "linkId": "order.fluticasone.selected",
+                  "text": "Order Fluticasone 110 mcg MDI",
+                  "type": "boolean",
+                  "initial": [{ "valueBoolean": false }]
+                },
+                {
+                  "linkId": "order.fluticasone.supply-source",
+                  "text": "Supply source",
+                  "type": "choice",
+                  "required": true,
+                  "enableWhen": [
+                    { "question": "order.fluticasone.selected", "operator": "=", "answerBoolean": true }
+                  ],
+                  "answerOption": [
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/medication-supply-source", "code": "stock", "display": "Stock (school supplied)" } },
+                    { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/medication-supply-source", "code": "parent-provided", "display": "Parent Provided" } }
+                  ]
+                },
+                {
+                  "linkId": "order.fluticasone.dose-puffs",
+                  "text": "Standing Daily Dose (puffs)",
+                  "type": "integer",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.doseAndRate.doseQuantity.value",
+                  "enableWhen": [
+                    { "question": "order.fluticasone.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.fluticasone.times-per-day",
+                  "text": "Time(s) a day",
+                  "type": "choice",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.frequency",
+                  "enableWhen": [
+                    { "question": "order.fluticasone.selected", "operator": "=", "answerBoolean": true }
+                  ],
+                  "answerOption": [
+                    { "valueInteger": 1 },
+                    { "valueInteger": 2 }
+                  ]
+                },
+                {
+                  "linkId": "order.fluticasone.time-am",
+                  "text": "Time (AM)",
+                  "type": "time",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.timeOfDay",
+                  "enableWhen": [
+                    { "question": "order.fluticasone.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.fluticasone.time-pm",
+                  "text": "Time (PM)",
+                  "type": "time",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.timeOfDay",
+                  "enableWhen": [
+                    { "question": "order.fluticasone.times-per-day", "operator": "=", "answerInteger": 2 }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "linkId": "order.controller-budesonide-formoterol",
+              "text": "Budesonide/formoterol (provided by parent) — standing daily dose",
+              "type": "group",
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-medication-order" }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest",
+              "item": [
+                {
+                  "linkId": "order.controller-budesonide-formoterol.selected",
+                  "text": "Order Budesonide/formoterol as a controller",
+                  "type": "boolean",
+                  "initial": [{ "valueBoolean": false }]
+                },
+                {
+                  "linkId": "order.controller-budesonide-formoterol.dose-puffs",
+                  "text": "Standing Daily Dose (puffs)",
+                  "type": "integer",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.doseAndRate.doseQuantity.value",
+                  "enableWhen": [
+                    { "question": "order.controller-budesonide-formoterol.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.controller-budesonide-formoterol.times-per-day",
+                  "text": "Time(s) a day",
+                  "type": "choice",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.frequency",
+                  "enableWhen": [
+                    { "question": "order.controller-budesonide-formoterol.selected", "operator": "=", "answerBoolean": true }
+                  ],
+                  "answerOption": [
+                    { "valueInteger": 1 },
+                    { "valueInteger": 2 }
+                  ]
+                },
+                {
+                  "linkId": "order.controller-budesonide-formoterol.time-am",
+                  "text": "Time (AM)",
+                  "type": "time",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.timeOfDay",
+                  "enableWhen": [
+                    { "question": "order.controller-budesonide-formoterol.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.controller-budesonide-formoterol.time-pm",
+                  "text": "Time (PM)",
+                  "type": "time",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.timeOfDay",
+                  "enableWhen": [
+                    { "question": "order.controller-budesonide-formoterol.times-per-day", "operator": "=", "answerInteger": 2 }
+                  ]
+                },
+                {
+                  "linkId": "order.controller-budesonide-formoterol.special-instructions",
+                  "text": "Special Instructions",
+                  "type": "text",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.note",
+                  "enableWhen": [
+                    { "question": "order.controller-budesonide-formoterol.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "linkId": "order.other-ics",
+              "text": "Other ICS (provided by parent) — standing daily dose",
+              "type": "group",
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-medication-order" }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest",
+              "item": [
+                {
+                  "linkId": "order.other-ics.selected",
+                  "text": "Order another ICS provided by parent",
+                  "type": "boolean",
+                  "initial": [{ "valueBoolean": false }]
+                },
+                {
+                  "linkId": "order.other-ics.name",
+                  "text": "Name",
+                  "type": "string",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.medicationCodeableConcept.text",
+                  "enableWhen": [
+                    { "question": "order.other-ics.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.other-ics.strength",
+                  "text": "Strength",
+                  "type": "string",
+                  "required": true,
+                  "enableWhen": [
+                    { "question": "order.other-ics.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.other-ics.dose",
+                  "text": "Dose",
+                  "type": "string",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.doseAndRate.doseQuantity",
+                  "enableWhen": [
+                    { "question": "order.other-ics.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.other-ics.route",
+                  "text": "Route",
+                  "type": "string",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.route",
+                  "enableWhen": [
+                    { "question": "order.other-ics.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.other-ics.times-per-day",
+                  "text": "Frequency — time(s) a day",
+                  "type": "choice",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.frequency",
+                  "enableWhen": [
+                    { "question": "order.other-ics.selected", "operator": "=", "answerBoolean": true }
+                  ],
+                  "answerOption": [
+                    { "valueInteger": 1 },
+                    { "valueInteger": 2 }
+                  ]
+                },
+                {
+                  "linkId": "order.other-ics.time-am",
+                  "text": "Time (AM)",
+                  "type": "time",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.timeOfDay",
+                  "enableWhen": [
+                    { "question": "order.other-ics.selected", "operator": "=", "answerBoolean": true }
+                  ]
+                },
+                {
+                  "linkId": "order.other-ics.time-pm",
+                  "text": "Time (PM)",
+                  "type": "time",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest#MedicationRequest.dosageInstruction.timing.repeat.timeOfDay",
+                  "enableWhen": [
+                    { "question": "order.other-ics.times-per-day", "operator": "=", "answerInteger": 2 }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          "linkId": "practitioner",
+          "text": "Health Care Practitioner",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "practitioner.last-name",
+              "text": "Last Name (Print)",
+              "type": "string",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/Practitioner#Practitioner.name.family"
+            },
+            {
+              "linkId": "practitioner.first-name",
+              "text": "First Name (Print)",
+              "type": "string",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/Practitioner#Practitioner.name.given"
+            },
+            {
+              "linkId": "practitioner.credential",
+              "text": "Credential",
+              "type": "choice",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/Practitioner#Practitioner.qualification.code",
+              "answerOption": [
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/practitioner-credential", "code": "MD", "display": "MD" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/practitioner-credential", "code": "DO", "display": "DO" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/practitioner-credential", "code": "NP", "display": "NP" } },
+                { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/practitioner-credential", "code": "PA", "display": "PA" } }
+              ]
+            },
+            {
+              "linkId": "practitioner.not-resident-attestation",
+              "text": "I attest that I am not a resident. This form cannot be completed by a resident.",
+              "type": "boolean",
+              "required": true,
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-attestation" }
+              ]
+            },
+            {
+              "linkId": "practitioner.nys-license",
+              "text": "NYS License # (Required)",
+              "type": "string",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/Practitioner#Practitioner.identifier.value"
+            },
+            {
+              "linkId": "practitioner.npi",
+              "text": "NPI #",
+              "type": "string",
+              "required": true,
+              "maxLength": 10,
+              "definition": "http://hl7.org/fhir/StructureDefinition/Practitioner#Practitioner.identifier.value"
+            },
+            {
+              "linkId": "practitioner.ed-practitioner",
+              "text": "Completed by Emergency Department Medical Practitioner? (ED Medical Practitioners will not be contacted by OSH/SBHC Staff)",
+              "type": "boolean",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/PractitionerRole#PractitionerRole.code"
+            },
+            {
+              "linkId": "practitioner.address",
+              "text": "Address",
+              "type": "string",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Practitioner#Practitioner.address"
+            },
+            {
+              "linkId": "practitioner.email",
+              "text": "E-mail address",
+              "type": "string",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Practitioner#Practitioner.telecom"
+            },
+            {
+              "linkId": "practitioner.tel",
+              "text": "Tel",
+              "type": "string",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/Practitioner#Practitioner.telecom"
+            },
+            {
+              "linkId": "practitioner.fax",
+              "text": "FAX",
+              "type": "string",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Practitioner#Practitioner.telecom"
+            },
+            {
+              "linkId": "practitioner.cell",
+              "text": "Cell Phone",
+              "type": "string",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Practitioner#Practitioner.telecom"
+            },
+            {
+              "linkId": "practitioner.signature",
+              "text": "Practitioner Signature",
+              "type": "group",
+              "required": true,
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-signature-block" }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance",
+              "item": [
+                {
+                  "linkId": "practitioner.signature.signed-by",
+                  "text": "Signature",
+                  "type": "string",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance.agent.who.display"
+                },
+                {
+                  "linkId": "practitioner.signature.date",
+                  "text": "Date",
+                  "type": "date",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance.recorded"
+                }
+              ]
+            },
+            {
+              "linkId": "practitioner.influenza-notice",
+              "text": "CDC and AAP strongly recommend annual influenza vaccination for all children diagnosed with asthma.",
+              "type": "display"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "linkId": "parent-section",
+      "text": "PARENTS/GUARDIANS READ, COMPLETE, AND SIGN",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://schools.nyc.gov/osh/StructureDefinition/osh-lane",
+          "valueCode": "parent"
+        }
+      ],
+      "item": [
+        {
+          "linkId": "parent.student-verification",
+          "text": "Student information (page 2)",
+          "type": "group",
+          "item": [
+            { "linkId": "parent.student-verification.last-name", "text": "Student Last Name", "type": "string", "required": true },
+            { "linkId": "parent.student-verification.first-name", "text": "First Name", "type": "string", "required": true },
+            { "linkId": "parent.student-verification.middle-initial", "text": "MI", "type": "string", "maxLength": 1 },
+            { "linkId": "parent.student-verification.dob", "text": "Date of birth", "type": "date", "required": true },
+            { "linkId": "parent.student-verification.school-dbn-name", "text": "School (ATS DBN/Name)", "type": "string" },
+            { "linkId": "parent.student-verification.borough", "text": "Borough", "type": "string" },
+            { "linkId": "parent.student-verification.district", "text": "District", "type": "string" }
+          ]
+        },
+
+        {
+          "linkId": "parent.consent-primary",
+          "text": "Parent/Guardian Consent",
+          "type": "group",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Consent#Consent",
+          "item": [
+            {
+              "linkId": "parent.consent-primary.text.1",
+              "text": "1. I consent to my child's medicine being stored and given at school based on directions from my child's health care practitioner. I also consent to any equipment needed for my child's medicine being stored and used at school.",
+              "type": "display"
+            },
+            {
+              "linkId": "parent.consent-primary.text.2",
+              "text": "2. I understand that: I must give the school nurse/School Based Health Center (SBHC) my child's medicine and equipment, including non-albuterol inhalers. All prescription and over-the-counter medicine I give the school must be new, unopened, and in the original bottle or box. I will provide the school with current, unexpired medicine for my child's use during school days. Prescription medicine must have the original pharmacy label on the box or bottle. The label must include: 1) my child's name, 2) pharmacy name and phone number, 3) my child's doctor's name, 4) date, 5) number of refills, 6) name of medicine, 7) dosage, 8) when to take the medicine, 9) how to take the medicine and 10) any other directions.",
+              "type": "display"
+            },
+            {
+              "linkId": "parent.consent-primary.text.3",
+              "text": "I certify/confirm that I have checked with my child's health care practitioner and I consent to the Office of School Health (OSH) giving my child stock medication in the event my child's asthma medicine is not available.",
+              "type": "display"
+            },
+            {
+              "linkId": "parent.consent-primary.text.4",
+              "text": "I must immediately tell the school nurse/SBHC provider about any change in my child's medicine or the doctor's instructions. OSH and its agents involved in providing the above health service(s) to my child are relying on the accuracy of the information in this form.",
+              "type": "display"
+            },
+            {
+              "linkId": "parent.consent-primary.text.5",
+              "text": "By signing this medication administration form (MAF), I authorize OSH to provide health services to my child. These services may include but are not limited to a clinical assessment or a physical exam by an OSH health care practitioner or nurse.",
+              "type": "display"
+            },
+            {
+              "linkId": "parent.consent-primary.text.6",
+              "text": "The medication order in this MAF expires at the end of my child's school year, which may include the summer session, or when I give the school nurse/SBHC provider a new MAF (whichever is earlier). When this medication order expires, I will give my child's school nurse/SBHC provider a new MAF written by my child's health care practitioner. If this is not done, an OSH health care practitioner may examine my child unless I provide a letter to my school nurse/SBHC stating that I do not want my child to be examined by an OSH health care practitioner. The OSH health care practitioner may assess my child's asthma symptoms and response to prescribed asthma medicine, may decide if the medication orders will remain the same or need to be changed, and may fill out a new MAF so my child can continue to receive health services through the OSH medical team. My health care practitioner or the OSH health care practitioner will not need my signature to write future asthma MAFs. If the OSH health care practitioner completes a new MAF for my child, the OSH health care practitioner will attempt to inform me and my child's health care practitioner.",
+              "type": "display"
+            },
+            {
+              "linkId": "parent.consent-primary.text.7",
+              "text": "This form represents my consent and request for the asthma services described on this form, and may be sent directly to OSH. It is not an agreement by OSH to provide the requested services. If OSH decides to provide these services, my child may also need a Section 504 Accommodation Plan. This plan will be completed by the school.",
+              "type": "display"
+            },
+            {
+              "linkId": "parent.consent-primary.text.8",
+              "text": "For the purposes of providing care or treatment to my child, OSH may obtain any other information they think is needed about my child's medical condition, medication or treatment. OSH may obtain this information from any health care practitioner, nurse, or pharmacist who has given my child health services.",
+              "type": "display"
+            },
+            {
+              "linkId": "parent.consent-primary.stock-note",
+              "text": "NOTE: If you opt to use stock medication, you must send your child's asthma inhaler, epinephrine, and other approved medications with your child for a school trip day and/or an after school program. Stock medications are only for use in school by OSH staff.",
+              "type": "display"
+            },
+            {
+              "linkId": "parent.consent-primary.agree",
+              "text": "By checking this box and signing below, I agree to all of the statements above.",
+              "type": "boolean",
+              "required": true,
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-attestation" }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/Consent#Consent.provision.type"
+            },
+            {
+              "linkId": "parent.consent-primary.osh-exam-optout-on-file",
+              "text": "A written objection to examination by an OSH health care practitioner is on file for this student.",
+              "type": "boolean",
+              "initial": [{ "valueBoolean": false }],
+              "definition": "http://hl7.org/fhir/StructureDefinition/Consent#Consent.provision"
+            }
+          ]
+        },
+
+        {
+          "linkId": "parent.consent-self-carry",
+          "text": "FOR SELF ADMINISTRATION OF MEDICINE (INDEPENDENT STUDENTS ONLY)",
+          "type": "group",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Consent#Consent",
+          "enableWhen": [
+            {
+              "question": "skill-level.value",
+              "operator": "=",
+              "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/skill-level", "code": "independent" }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "parent.consent-self-carry.text",
+              "text": "I certify/confirm that my child has been fully trained and can take medicine on his or her own. I consent to my child carrying, storing and giving him or herself the medicine prescribed on this form in school and on trips. I am responsible for giving my child this medicine in bottles or boxes as described above. I am also responsible for monitoring my child's medication use, and for all results of my child's use of this medicine in school. The school nurse/SBHC will confirm my child's ability to carry and give him or herself medicine. I also agree to give the school back-up medicine in a clearly labeled box or bottle.",
+              "type": "display"
+            },
+            {
+              "linkId": "parent.consent-self-carry.agree",
+              "text": "I consent to my child self-carrying and self-administering the medicine prescribed on this form.",
+              "type": "boolean",
+              "required": true,
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-attestation" }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/Consent#Consent.provision.type"
+            },
+            {
+              "linkId": "parent.consent-self-carry.signature",
+              "text": "Self-Carry Consent Signature",
+              "type": "group",
+              "required": true,
+              "extension": [
+                { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-signature-block" }
+              ],
+              "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance",
+              "item": [
+                {
+                  "linkId": "parent.consent-self-carry.signature.signed-by",
+                  "text": "Parent/Guardian Signature",
+                  "type": "string",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance.agent.who.display"
+                },
+                {
+                  "linkId": "parent.consent-self-carry.signature.date",
+                  "text": "Date Signed",
+                  "type": "date",
+                  "required": true,
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance.recorded"
+                }
+              ]
+            }
+          ]
+        },
+
+        {
+          "linkId": "parent.contact",
+          "text": "Parent/Guardian Information",
+          "type": "group",
+          "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson",
+          "item": [
+            {
+              "linkId": "parent.contact.name",
+              "text": "Parent/Guardian Name (Print)",
+              "type": "string",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.name"
+            },
+            {
+              "linkId": "parent.contact.email",
+              "text": "Parent/Guardian's Email",
+              "type": "string",
+              "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.telecom"
+            },
+            {
+              "linkId": "parent.contact.address",
+              "text": "Parent/Guardian Address",
+              "type": "string",
+              "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.address"
+            },
+            {
+              "linkId": "parent.contact.cell-phone",
+              "text": "Parent/Guardian Cell Phone",
+              "type": "string",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.telecom"
+            },
+            {
+              "linkId": "parent.contact.other-phone",
+              "text": "Other Phone",
+              "type": "string",
+              "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.telecom"
+            },
+            {
+              "linkId": "parent.contact.emergency-contact-name",
+              "text": "Other Emergency Contact Name/Relationship",
+              "type": "string",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.contact.name"
+            },
+            {
+              "linkId": "parent.contact.emergency-contact-phone",
+              "text": "Other Emergency Contact Phone",
+              "type": "string",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.contact.telecom"
+            }
+          ]
+        },
+
+        {
+          "linkId": "parent.signature",
+          "text": "Parent/Guardian Signature",
+          "type": "group",
+          "required": true,
+          "extension": [
+            { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-signature-block" }
+          ],
+          "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance",
+          "item": [
+            {
+              "linkId": "parent.signature.signed-by",
+              "text": "Parent/Guardian Signature",
+              "type": "string",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance.agent.who.display"
+            },
+            {
+              "linkId": "parent.signature.date",
+              "text": "Date Signed",
+              "type": "date",
+              "required": true,
+              "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance.recorded"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "linkId": "osh-use-only",
+      "text": "For Office of School Health (OSH) Use Only",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://schools.nyc.gov/osh/StructureDefinition/osh-lane",
+          "valueCode": "nurse"
+        }
+      ],
+      "definition": "http://hl7.org/fhir/StructureDefinition/Task#Task",
+      "item": [
+        {
+          "linkId": "osh.osis",
+          "text": "OSIS Number",
+          "type": "string",
+          "maxLength": 20
+        },
+        {
+          "linkId": "osh.received-by-name",
+          "text": "Received by — Name",
+          "type": "string",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Task#Task.output"
+        },
+        {
+          "linkId": "osh.received-date",
+          "text": "Received Date",
+          "type": "date",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Task#Task.output"
+        },
+        {
+          "linkId": "osh.plan",
+          "text": "Plan on file",
+          "type": "choice",
+          "repeats": true,
+          "answerOption": [
+            { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/osh-plan", "code": "504", "display": "504" } },
+            { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/osh-plan", "code": "iep", "display": "IEP" } },
+            { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/osh-plan", "code": "other", "display": "Other" } }
+          ]
+        },
+        {
+          "linkId": "osh.plan-other",
+          "text": "Other plan (specify)",
+          "type": "string",
+          "enableWhen": [
+            { "question": "osh.plan", "operator": "=", "answerCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/osh-plan", "code": "other" } }
+          ]
+        },
+        {
+          "linkId": "osh.reviewed-by-name",
+          "text": "Reviewed by — Name",
+          "type": "string",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Task#Task.output"
+        },
+        {
+          "linkId": "osh.reviewed-date",
+          "text": "Reviewed Date",
+          "type": "date",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Task#Task.output"
+        },
+        {
+          "linkId": "osh.referred-504-coordinator",
+          "text": "Referred to School 504 Coordinator",
+          "type": "boolean",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Task#Task.output"
+        },
+        {
+          "linkId": "osh.services-provided-by",
+          "text": "Services provided by",
+          "type": "choice",
+          "repeats": true,
+          "definition": "http://hl7.org/fhir/StructureDefinition/Task#Task.owner",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-constraint",
+              "extension": [
+                { "url": "key", "valueId": "osh-service-eligibility" },
+                { "url": "severity", "valueCode": "error" },
+                {
+                  "url": "expression",
+                  "valueString": "%resource.descendants().where(linkId='osh.services-provided-by').answer.value.code.where($this in ('osh-pha' | 'osh-case-manager')).empty() or %resource.descendants().where(linkId='skill-level.value').answer.value.code = 'supervised'"
+                },
+                {
+                  "url": "human",
+                  "valueString": "OSH Public Health Advisor and OSH Asthma Case Manager may be assigned only to Supervised students."
+                }
+              ]
+            }
+          ],
+          "answerOption": [
+            { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/osh-service-provider", "code": "nurse-np", "display": "Nurse/NP" } },
+            { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/osh-service-provider", "code": "osh-pha", "display": "OSH Public Health Advisor (for supervised students only)" } },
+            { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/osh-service-provider", "code": "sbhc", "display": "School Based Health Center" } },
+            { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/osh-service-provider", "code": "osh-case-manager", "display": "OSH Asthma Case Manager (for supervised students only)" } }
+          ]
+        },
+        {
+          "linkId": "osh.signature",
+          "text": "Signature and Title (RN OR MD/DO/NP)",
+          "type": "group",
+          "extension": [
+            { "url": "http://schools.nyc.gov/osh/StructureDefinition/item-control", "valueCode": "osh-signature-block" }
+          ],
+          "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance",
+          "item": [
+            {
+              "linkId": "osh.signature.signed-by",
+              "text": "Signature",
+              "type": "string",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance.agent.who.display"
+            },
+            {
+              "linkId": "osh.signature.title",
+              "text": "Title (RN OR MD/DO/NP)",
+              "type": "string"
+            },
+            {
+              "linkId": "osh.signature.date",
+              "text": "Date",
+              "type": "date",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Provenance#Provenance.recorded"
+            }
+          ]
+        },
+        {
+          "linkId": "osh.revisions",
+          "text": "Revisions per Office of School Health after consultation with prescribing practitioner",
+          "type": "choice",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Task#Task.output",
+          "answerOption": [
+            { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/osh-revision", "code": "clarified", "display": "Clarified" } },
+            { "valueCoding": { "system": "http://schools.nyc.gov/osh/CodeSystem/osh-revision", "code": "modified", "display": "Modified" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "resourceType": "Questionnaire",
+  "url": "http://schools.nyc.gov/osh/Questionnaire/toy",
+  "version": "1.1",
+  "name": "ToyForm",
+  "title": "Toy Form",
+  "status": "active",
+  "item": [
+    {
+      "linkId": "name",
+      "text": "What is your name?",
+      "type": "string",
+      "required": true
+    },
+    {
+      "linkId": "birthday",
+      "text": "When is your birthday?",
+      "type": "date"
+    },
+    {
+      "linkId": "age",
+      "text": "How old are you?",
+      "type": "integer"
+    },
+    {
+      "linkId": "likes-cake",
+      "text": "Do you like cake?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "cake-flavour",
+      "text": "Which flavour?",
+      "type": "choice",
+      "enableWhen": [
+        {
+          "question": "likes-cake",
+          "operator": "=",
+          "answerBoolean": true
+        }
+      ],
+      "answerOption": [
+        {
+          "valueCoding": {
+            "code": "choc",
+            "display": "Chocolate"
+          }
+        },
+        {
+          "valueCoding": {
+            "code": "vanil",
+            "display": "Vanilla"
+          }
+        },
+        {
+          "valueCoding": {
+            "code": "carrot",
+            "display": "Carrot"
+          }
+        }
+      ]
+    }
+  ]
+}

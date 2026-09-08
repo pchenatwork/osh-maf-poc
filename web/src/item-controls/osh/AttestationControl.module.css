@@ -1,0 +1,25 @@
+/* Styles for AttestationControl.tsx. */
+
+.attestation {
+  margin-bottom: var(--item-margin, 1rem);
+  max-width: 46rem;
+}
+
+/* Checkbox in front, statement beside it, and the statement's second and
+   later lines aligned under the first rather than under the box. */
+.row {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem;
+  align-items: start;
+  font-weight: 400;
+}
+
+.statement {
+  white-space: pre-line;
+}
+
+/* view / print: a drawn box, since there is no live input to show. */
+.mark {
+  margin-right: 0.5rem;
+}

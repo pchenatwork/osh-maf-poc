@@ -1,0 +1,29 @@
+/* Styles for SignatureBlockControl.tsx. */
+
+.signature {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.heading {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+
+  /* Shared item style API: fields sit side by side on one line, each
+     stacking its own label, with the flex gap doing the spacing. */
+  --item-columns: 1fr;
+  --item-margin: 0;
+}
+
+.stamp {
+  margin: 0.75rem 0 0;
+  font-style: italic;
+  color: #444;
+}
