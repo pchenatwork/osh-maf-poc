@@ -5,6 +5,7 @@ import { fetchQuestionnaire } from "./api/questionnaires";
 import { QuestionnaireRenderer } from "./renderer/QuestionnaireRenderer";
 import { ResponseInspector } from "./renderer/ResponseInspector";
 import { JsonDialog } from "./JsonDialog";
+import { LoadingNotice } from "./LoadingNotice";
 import type { RenderMode } from "./item-controls/contract";
 import styles from "./App.module.css";
 
@@ -42,7 +43,7 @@ export default function App() {
     queryFn: () => fetchQuestionnaire(TOY_URL, VERSION),
   });
 
-  if (isPending) return <p>Loading definition…</p>;
+  if (isPending) return <LoadingNotice />;
   if (error)
     return <p role="alert">Could not load: {(error as Error).message}</p>;
 

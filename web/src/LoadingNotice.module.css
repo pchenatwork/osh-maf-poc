@@ -1,0 +1,48 @@
+/* Styles for LoadingNotice.tsx. */
+
+.notice {
+  max-width: 34rem;
+  margin: 4rem auto;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+.headline {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.detail {
+  margin: 0.5rem 0 0;
+}
+
+/* Track and fill for the cold-start progress bar. The fill is driven from JS
+   rather than a CSS animation because it represents real elapsed time against
+   the observed worst case, and it must survive a re-render mid-wait. */
+.bar {
+  height: 4px;
+  margin-top: 1rem;
+  border-radius: 2px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: 2px;
+  background: #d97706;
+  transition: width 1s linear;
+}
+
+.elapsed {
+  margin: 0.5rem 0 0;
+  font-size: 0.75rem;
+  color: #64748b;
+  font-variant-numeric: tabular-nums;
+}

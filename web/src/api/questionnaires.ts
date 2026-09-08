@@ -16,6 +16,25 @@ const FHIR_JSON = "application/fhir+json";
  */
 const API_BASE = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/+$/, "");
 
+/**
+ * A failed API response, carrying the HTTP status.
+ *
+ * The status is what lets the retry policy in main.tsx tell a cold start (5xx
+ * from the host while the service boots — worth waiting out) from a real
+ * answer (404: that definition is not published — retrying cannot help).
+ */
+export class ApiError extends Error {
+  // Declared and assigned separately rather than as a constructor parameter
+  // property: tsconfig sets erasableSyntaxOnly, which bans the shorthand.
+  readonly status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+  }
+}
+
 export async function fetchQuestionnaire(
   url: string,
   version?: string,
@@ -30,8 +49,9 @@ export async function fetchQuestionnaire(
   if (!res.ok) {
     // The API returns an OperationOutcome on error.
     const outcome = await res.json().catch(() => null);
-    throw new Error(
+    throw new ApiError(
       outcome?.issue?.[0]?.diagnostics ?? `Fetch failed: ${res.status}`,
+      res.status,
     );
   }
   return res.json();
