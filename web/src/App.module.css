@@ -1,4 +1,4 @@
-/* The application shell: page frame and mode switcher.
+/* The application shell: page frame and action row.
 
    Nothing about an individual form control belongs here — that vocabulary
    lives in item-controls/item-controls.module.css.
@@ -18,10 +18,49 @@
   /* max-width: 60rem; */
 }
 
+/* What this project is, above the form itself. Constrained to a readable
+   measure rather than the full grid column, which is wide enough that long
+   prose becomes hard to track line to line. */
+.intro {
+  max-width: 60rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+.intro p {
+  margin: 0 0 0.5rem;
+}
+
+.intro code {
+  font-size: 0.9em;
+  background: #f1f5f9;
+  padding: 0.05rem 0.25rem;
+  border-radius: 3px;
+}
+
+/* The POC disclaimer. Amber rather than red: this is a standing caveat about
+   what the project is, not an error the user can act on. Reuses the amber pair
+   already used for warnings in item-controls/item-controls.module.css. */
+.warning {
+  border-left: 3px solid #d97706;
+  background: #fffbeb;
+  padding: 0.5rem 0.75rem;
+  color: #78350f;
+}
+
+/* The action row above the form: mode switcher plus one-off commands. */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
 .modes {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 1.5rem;
 }
 .modes button[aria-pressed="true"] {
   font-weight: 700;

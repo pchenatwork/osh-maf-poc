@@ -79,7 +79,8 @@ export const Field = ({ item, errors, id, htmlFor, children }: FieldProps) => {
         {children}
         {errors.length > 0 && (
           <div id={errorIdOf(id)} role="alert" className={shared.error}>
-            {errors.join(" ")}
+            {/* errors.join(" ") */}
+            {"Required *"}
           </div>
         )}
       </div>

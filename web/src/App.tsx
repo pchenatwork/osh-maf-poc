@@ -4,6 +4,7 @@ import type { QuestionnaireResponse } from "./item-controls/contract";
 import { fetchQuestionnaire } from "./api/questionnaires";
 import { QuestionnaireRenderer } from "./renderer/QuestionnaireRenderer";
 import { ResponseInspector } from "./renderer/ResponseInspector";
+import { JsonDialog } from "./JsonDialog";
 import type { RenderMode } from "./item-controls/contract";
 import styles from "./App.module.css";
 
@@ -25,6 +26,7 @@ const VERSION = "1.0";
 export default function App() {
   const [mode, setMode] = useState<RenderMode>("edit");
   const [live, setLive] = useState<QuestionnaireResponse | null>(null);
+  const [showDefinition, setShowDefinition] = useState(false);
 
   const handleChange = useCallback(
     (r: QuestionnaireResponse) => setLive(r),
@@ -45,30 +47,69 @@ export default function App() {
     return <p role="alert">Could not load: {(error as Error).message}</p>;
 
   return (
-    <div className={styles.layout}>
-      <main className={styles.main}>
-        <nav className={styles.modes}>
-          {(["edit", "view", "print"] as const).map((m) => (
+    <>
+      <div className={styles.layout}>
+        <main className={styles.main}>
+          {/* Page-level framing for the POC. Deliberately not a heading: the
+              renderer already emits the <h1> (the form's own title), and a
+              second one above it would break the document outline. */}
+          <header className={styles.intro}>
+            <p className={styles.warning}>
+              <strong>Digital MAF — proof of concept.</strong> A runtime
+              schema-driven form built on{" "}
+              <strong>FHIR R4 Structured Data Capture</strong>. The form is
+              data, not code: a <code>Questionnaire</code> resource is served by
+              the API and rendered at runtime. Changing a form means publishing
+              new JSON — not shipping a release.
+            </p>
+          </header>
+
+          <div className={styles.toolbar}>
+            <nav className={styles.modes}>
+              {(["edit", "view"] as const).map((m) => (
+                <button
+                  key={m}
+                  onClick={() => setMode(m)}
+                  aria-pressed={mode === m}
+                >
+                  {m}
+                </button>
+              ))}
+            </nav>
+
+            {/* A command, not a mode: outside the nav, so it neither claims
+                aria-pressed nor picks up the mode-switcher styling. */}
             <button
-              key={m}
-              onClick={() => setMode(m)}
-              aria-pressed={mode === m}
+              type="button"
+              aria-haspopup="dialog"
+              aria-expanded={showDefinition}
+              onClick={() => setShowDefinition(true)}
             >
-              {m}
+              form definition
             </button>
-          ))}
-        </nav>
+          </div>
 
-        <QuestionnaireRenderer
-          key={questionnaire.version}
-          questionnaire={questionnaire}
-          mode={mode}
-          onChange={handleChange}
-          onSubmit={(r) => console.log("SUBMIT", r)}
-        />
-      </main>
+          <QuestionnaireRenderer
+            key={questionnaire.version}
+            questionnaire={questionnaire}
+            mode={mode}
+            onChange={handleChange}
+            onSubmit={(r) => console.log("SUBMIT", r)}
+          />
+        </main>
 
-      {live && <ResponseInspector response={live} />}
-    </div>
+        {live && <ResponseInspector response={live} />}
+      </div>
+
+      {/* Outside .layout: a modal dialog is not a grid cell. It stays mounted
+          while closed (display:none) so the ref survives and the browser can
+          restore focus to the trigger on close. */}
+      <JsonDialog
+        open={showDefinition}
+        title={`Form definition — ${questionnaire.title ?? questionnaire.url} (v${questionnaire.version})`}
+        value={questionnaire}
+        onClose={() => setShowDefinition(false)}
+      />
+    </>
   );
 }

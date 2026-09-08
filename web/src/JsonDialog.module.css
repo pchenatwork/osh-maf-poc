@@ -1,0 +1,64 @@
+/* Styles for JsonDialog.tsx.
+
+   The <pre> repeats the dark-slate treatment from
+   renderer/ResponseInspector.module.css rather than sharing it. There is no
+   shared stylesheet at shell level, and the house rule (see
+   item-controls/item-controls.module.css) is that a rule earns a shared home
+   only when more than one place needs it — two JSON views do not yet justify
+   inventing a third stylesheet. Extract if a third appears.
+
+   Note what is NOT set here: display. The UA stylesheet hides a closed dialog
+   with `dialog:not([open]) { display: none }`, and a class selector outranks
+   it — a bare `display: flex` on .dialog would leave the popup permanently
+   visible in the page flow. Any display rule must be scoped to .dialog[open]. */
+
+.dialog {
+  /* Zero padding is required, not cosmetic: the backdrop-click test in
+     JsonDialog.tsx compares the event target against the <dialog>, so no
+     visible pixel may belong to the dialog itself. .panel owns the padding. */
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: min(60rem, 90vw);
+  color: #111;
+  background: #fff;
+}
+
+.dialog::backdrop {
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.panel {
+  padding: 1rem;
+}
+
+.panel pre {
+  margin: 0;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  /* The JSON scrolls, not the dialog and not the page. */
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.close {
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.1rem 0.4rem;
+}

@@ -4,33 +4,154 @@
   "url": "http://schools.nyc.gov/osh/Questionnaire/my-maf",
   "version": "1.0",
   "name": "MyMafForm",
-  "title": "Toy MAF Form — risk panel",
+  "title": "Toy MAF Form",
   "status": "active",
   "experimental": true,
-  "subjectType": [
-    "Patient"
-  ],
+  "subjectType": ["Patient"],
   "date": "2026-09-06",
   "description": "Exercises ChoiceControl (horizontal Y/N/U rows with conditional follow-ups, plus a matrix of every presentation), the risk panel in its one standard shape — one group per line item — and the label-orientation extension.",
   "item": [
     {
-      "linkId": "how-it-works",
-      "text": "Run-time form generation. The server returns one FHIR R4 Questionnaire and the renderer walks its item tree, choosing a control per item.type - a group becomes a section, a choice becomes the buttons below built from its answerOption codes, and enableWhen decides what appears as you answer. Your entries are collected into a QuestionnaireResponse that mirrors the same tree, stores each answer as a typed FHIR value, and pins this definition by url|version. A new form is therefore a new JSON definition, not new code.",
-      "type": "display",
-      "extension": [
+      "linkId": "diagnosis",
+      "text": "Diagnosis",
+      "type": "group",
+      "item": [
         {
-          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-displayCategory",
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/questionnaire-display-category",
-                "code": "instructions"
+          "linkId": "diagnosis.code",
+          "text": "Diagnosis",
+          "type": "choice",
+          "repeats": true,
+          "required": true,
+          "definition": "http://hl7.org/fhir/StructureDefinition/Condition#Condition.code",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "195967001",
+                "display": "Asthma"
               }
-            ]
-          }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/maf-diagnosis",
+                "code": "other",
+                "display": "Other"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "diagnosis.other",
+          "text": "Other diagnosis (specify)",
+          "type": "string",
+          "required": true,
+          "definition": "http://hl7.org/fhir/StructureDefinition/Condition#Condition.code.text",
+          "enableWhen": [
+            {
+              "question": "diagnosis.code",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/maf-diagnosis",
+                "code": "other"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "diagnosis.severity",
+          "text": "Severity (see NAEPP Guidelines)",
+          "type": "choice",
+          "required": true,
+          "definition": "http://hl7.org/fhir/StructureDefinition/Condition#Condition.severity",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-severity",
+                "code": "intermittent",
+                "display": "Intermittent"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-severity",
+                "code": "mild-persistent",
+                "display": "Mild Persistent"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-severity",
+                "code": "moderate-persistent",
+                "display": "Moderate Persistent"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-severity",
+                "code": "severe-persistent",
+                "display": "Severe Persistent"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-severity",
+                "code": "unknown",
+                "display": "Unknown"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "diagnosis.control",
+          "text": "Control (see NAEPP Guidelines)",
+          "type": "choice",
+          "required": true,
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueCodeableConcept",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-control",
+                "code": "well-controlled",
+                "display": "Well Controlled"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-control",
+                "code": "not-controlled",
+                "display": "Not Controlled / Poorly Controlled"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://schools.nyc.gov/osh/CodeSystem/naepp-control",
+                "code": "unknown",
+                "display": "Unknown"
+              }
+            }
+          ]
         }
       ]
     },
+
     {
       "linkId": "risk-panel",
       "text": "Student Asthma Risk Assessment Questionnaire (Y = Yes, N = No, U = Unknown)",
@@ -38,12 +159,12 @@
       "item": [
         {
           "linkId": "risk.Q1",
-          "text": "Q1 - History of life-threatening asthma (loss of consciousness, hypoxic seizure, or intubation)",
+          "text": "History of life-threatening asthma (loss of consciousness, hypoxic seizure, or intubation)",
           "type": "group",
           "item": [
             {
               "linkId": "risk.Q1.answer",
-              "text": "Q1 - History of life-threatening asthma (loss of consciousness, hypoxic seizure, or intubation)",
+              "text": "History of life-threatening asthma (loss of consciousness, hypoxic seizure, or intubation)",
               "type": "choice",
               "extension": [
                 {
@@ -80,12 +201,12 @@
         },
         {
           "linkId": "risk.Q2",
-          "text": "Q2 - Received oral steroids within past 12 months",
+          "text": "Received oral steroids within past 12 months.",
           "type": "group",
           "item": [
             {
               "linkId": "risk.Q2.answer",
-              "text": "Q2 - Received oral steroids within past 12 months",
+              "text": "Received oral steroids within past 12 months",
               "type": "choice",
               "extension": [
                 {
@@ -153,12 +274,12 @@
         },
         {
           "linkId": "risk.Q3",
-          "text": "Q3 - History of food allergy or eczema",
+          "text": "History of food allergy or eczema.",
           "type": "group",
           "item": [
             {
               "linkId": "risk.Q3.answer",
-              "text": "Q3 - History of food allergy or eczema",
+              "text": "History of food allergy or eczema",
               "type": "choice",
               "extension": [
                 {
